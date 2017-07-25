@@ -179,6 +179,7 @@ object Assembly {
     val dirRules = shadeRules.filter(_.isApplicableToCompiling)
     val dirsFiltered =
       dirs.par flatMap {
+        case dir if excludedJars contains dir.data.asFile => None
         case dir =>
           if (ao.includeBin) Some(dir)
           else None
